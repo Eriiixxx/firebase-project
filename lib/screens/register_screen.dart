@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/screens/app_colors.dart';
 import 'package:flutter_demo/screens/app_icons.dart';
@@ -359,13 +360,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Material(
                                   color: Colors.transparent,
                                   child: InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (_formKey.currentState?.validate() ?? false) {
-                                        // If form is valid, navigate to another screen (e.g., HomeScreen)
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => LoginScreen()), // Replace HomeScreen with your target screen
-                                        );
+                                        try {
+                                          // Create a new user with Firebase
+                                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                            email: _emailController.text.trim(),
+                                            password: _passwordController.text.trim(),
+                                          );
+
+                                          // Navigate to the Login screen upon successful registration
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                          );
+
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('Registration successful! Please log in.')),
+                                          );
+                                        } on FirebaseAuthException catch (e) {
+                                          // Handle Firebase registration errors
+                                          String errorMessage;
+                                          if (e.code == 'email-already-in-use') {
+                                            errorMessage = 'The email is already in use.';
+                                          } else if (e.code == 'weak-password') {
+                                            errorMessage = 'The password is too weak.';
+                                          } else {
+                                            errorMessage = 'An error occurred. Please try again.';
+                                          }
+
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text(errorMessage)),
+                                          );
+                                        } catch (e) {
+                                          // Handle general errors
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('An unexpected error occurred.')),
+                                          );
+                                        }
                                       }
                                     },
                                     borderRadius: BorderRadius.circular(16.0),
@@ -388,6 +420,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
+
+                              Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                  Text(
+                                    'Already have an account?',
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12.0,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/');
+                                  },
+                                  child: Text(
+                                    'Login',
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12.0,
+                                      color: Colors.red[300],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             ],
                           ),
                         ),

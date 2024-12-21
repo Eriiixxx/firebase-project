@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'YNS Dental Care',
+                        'Expensees',
                         style: GoogleFonts.raleway(
                           fontSize: 48.0,
                           color: AppColors.whiteColor,
@@ -284,6 +284,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                  Text(
+                                    'Don"t Have Account?',
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12.0,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/register');
+                                  },
+                                  child: Text(
+                                    'Register',
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12.0,
+                                      color: Colors.red[300],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/screens/dasboard_screen.dart';
+import 'package:flutter_demo/screens/navigation_screen.dart';
 import 'package:flutter_demo/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_demo/screens/register_screen.dart';
 import 'firebase_options.dart'; // Import the generated file
 
 void main() async {
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),
-        '/dashboard': (context) => const DashboardScreen(), // Replace with your dashboard
+        '/register': (context) => const RegisterScreen(),
+        '/dashboard': (context) => const NavigationScreen(), // Replace with your dashboard
       },
     );
   }
