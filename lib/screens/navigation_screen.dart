@@ -88,7 +88,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     width: isExpanded ? 100 : 80,
                     height: isExpanded ? 100 : 80,
                     fit: BoxFit.fitHeight,
-                    image: const AssetImage('assets/images/YNS Logo1.png'),
+                    image: const AssetImage('assets/images/expensees_logo.png'),
                   ),
                   const SizedBox(height: 10),
                   Text(

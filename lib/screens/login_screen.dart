@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter both email and password')),
+        const SnackBar(content: Text('Please enter both email and password')),
       );
       return;
     }
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 5.0),
                       Image.asset(
-                        'assets/images/YNS Logo1.png',
+                        'assets/images/expensees_logo.png',
                         width: 400.0,
                         height: 400.0,
                       ),
